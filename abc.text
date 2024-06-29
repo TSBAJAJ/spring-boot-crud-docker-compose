@@ -1,0 +1,14 @@
+docker run -p 3307:3306 --name mysqldb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=test mysql
+
+
+docker run -p 9090:8080 --net spring-network -e MYSQL_HOST=mysqldb -e MYSQL_USER=root -e MYSQL_PASSWORD=root -e MYSQL_PORT=3306 spring_boot_mysql/ms-mysql-connect-docker-crud:0.0.1-SNAPSHOT
+
+push image to dockerhub:
+1. docker login
+2. You need to tag your existing Docker image with your Docker Hub username. Assuming your Docker Hub username is your_dockerhub_username, use the following command to tag the image::
+    docker tag spring_boot_mysql/ms-mysql-connect-docker-crud:0.0.1-SNAPSHOT your_dockerhub_username/ms-mysql-connect-docker-crud:0.0.1-SNAPSHOT
+    docker tag spring_boot_mysql/ms-mysql-connect-docker-crud:0.0.1-SNAPSHOT tsbajaj/ms-mysql-connect-docker-crud:0.0.1-SNAPSHOT
+
+
+3. docker push your_dockerhub_username/ms-mysql-connect-docker-crud:0.0.1-SNAPSHOT
+    docker push tsbajaj/ms-mysql-connect-docker-crud:0.0.1-SNAPSHOT

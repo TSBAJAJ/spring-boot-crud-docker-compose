@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql
+    container_name: mysqldb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+    ports:
+      - "3307:3306"
+    networks:
+      - spring-network
+
+  mysql-connect-docker-crud:
+    image: tsbajaj/ms-mysql-connect-docker-crud:0.0.1-SNAPSHOT
+    container_name: spring-boot-crud
+    depends_on:
+      - mysqldb
+    environment:
+      - MYSQL_HOST=mysqldb
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_PORT=3306
+    ports:
+      - "9090:8080"
+    networks:
+      - spring-network
+
+networks:
+  spring-network:
+    driver: bridge
